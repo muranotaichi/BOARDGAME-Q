@@ -1,0 +1,21 @@
+<% unless current_user.full_profile? %>
+  <header class="header_top panel panel-default col-lg-12 no-profile">
+    <h2>まずは、あなたの基本プロフィールを登録しましょう！</h2>
+    <p>ボードゲームでまだ見ぬ仲間を探そう</p>
+    <%= link_to "プロフィールを登録する", edit_user_path(current_user), { class: "btn btn-lg btn-primary withripple" } %>
+  </header>
+<% else %>
+<div class="posting_form top_content">
+    <header class="posting_header">
+      <div class="posting_image icon_image" style="background-image: url(<%= rails_blob_path( current_user.image) %>);"></div>
+      <div class="posting_user_info user_info">
+        <%= current_user.handle_name %>
+      </div>
+    </header>
+    <%= form_for(@question) do |f| %>
+      <%= f.text_field :text, placeholder: "ルールについての質問を投稿しよう！" %>
+      <%= f.submit "質問する" %>
+    <% end %>
+  </div>
+  <%= render partial: "questions/question", collection: @questions %>
+<% end %>
